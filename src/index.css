@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 213 45% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 213 45% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 45% 15%;
+
+    --primary: 213 74% 17%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 216 85% 52%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 30% 95%;
+    --muted-foreground: 215 16% 42%;
+
+    --accent: 213 90% 95%;
+    --accent-foreground: 213 74% 17%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 35%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 24 10% 10%;
+
+    --border: 214 24% 88%;
+    --input: 214 24% 88%;
+    --ring: 216 85% 52%;
+
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 213 45% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 213 42% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 213 42% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 216 85% 60%;
+    --primary-foreground: 213 45% 10%;
+
+    --secondary: 216 85% 52%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 213 30% 16%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 213 40% 18%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 60% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 85% 55%;
+    --warning-foreground: 24 10% 10%;
+
+    --border: 213 30% 20%;
+    --input: 213 30% 20%;
+    --ring: 216 85% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    overscroll-behavior-y: none;
+  }
+
+  #root {
+    min-height: 100dvh;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-elo-gray-border rounded-full;
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
