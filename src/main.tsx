@@ -7,7 +7,10 @@ import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { setupAutoUpdate } from "./pwa";
 import "./index.css";
+
+setupAutoUpdate();
 
 function Root() {
   if (!isSupabaseConfigured) {
