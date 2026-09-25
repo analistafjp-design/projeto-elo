@@ -15,7 +15,7 @@ export default defineConfig({
         "icons/icon-512.png",
       ],
       manifest: {
-        id: "/",
+        id: ".",
         name: "ELO - Gestão de Negociações em Campo",
         short_name: "ELO",
         description: "Conectando equipes de campo e clientes.",
@@ -23,8 +23,8 @@ export default defineConfig({
         background_color: "#0B2A4A",
         display: "standalone",
         orientation: "portrait",
-        start_url: "/",
-        scope: "/",
+        start_url: ".",
+        scope: "./",
         lang: "pt-BR",
         icons: [
           {
@@ -81,6 +81,12 @@ export default defineConfig({
       },
     }),
   ],
+  // Na Vercel o site fica na raiz do domínio ("/"). No GitHub Pages (site
+  // de projeto) ele fica num subcaminho ("/projeto-elo/"). O workflow de
+  // deploy do GitHub Pages define GH_PAGES=true durante o build; a Vercel
+  // não define essa variável, então cai no caminho padrão "/". O React
+  // Router lê esse mesmo valor via import.meta.env.BASE_URL (ver main.tsx).
+  base: process.env.GH_PAGES === "true" ? "/projeto-elo/" : "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -15,7 +15,7 @@ function Root() {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AuthProvider>
         <TooltipProvider delayDuration={200}>
           <App />

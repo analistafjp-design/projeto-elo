@@ -98,7 +98,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const sendPasswordReset: AuthContextValue["sendPasswordReset"] = async (email) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/redefinir-senha`,
+      // BASE_URL já contém a barra inicial e final (ex.: "/" na Vercel,
+      // "/projeto-elo/" no GitHub Pages), então basta concatenar.
+      redirectTo: `${window.location.origin}${import.meta.env.BASE_URL}redefinir-senha`,
     });
     return { error: error ? traduzirErroAuth(error.message) : null };
   };
