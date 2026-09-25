@@ -315,6 +315,22 @@ build Vite (`npm run build`, saída em `dist/`) com rewrite de SPA
 variáveis de ambiente (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, etc.)
 no painel do projeto.
 
+### Frontend — GitHub Pages (alternativa sem precisar de outra conta)
+O repositório também inclui um workflow pronto
+([`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml))
+que builda e publica o site automaticamente no GitHub Pages a cada push na
+`main`, usando só a conta do GitHub (sem precisar criar conta em outro
+serviço). Requer:
+1. Em **Settings → Secrets and variables → Actions → Secrets**, cadastrar
+   `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`.
+2. Em **Settings → Pages**, definir **Source: GitHub Actions**.
+3. Um push na `main` (ou rodar o workflow manualmente em **Actions**) publica
+   o site em `https://<usuário>.github.io/projeto-elo/`.
+
+O build detecta automaticamente o destino (raiz do domínio na Vercel,
+subcaminho `/projeto-elo/` no GitHub Pages) via a variável `GH_PAGES`
+definida pelo próprio workflow — nenhum ajuste manual é necessário.
+
 ### Backend — Supabase
 O banco de dados, autenticação, storage e a Edge Function `gerar-alertas`
 rodam inteiramente no Supabase. Não há servidor próprio para manter.
