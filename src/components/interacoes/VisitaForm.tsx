@@ -51,7 +51,11 @@ export function VisitaForm({ foto, onFotoChange, onCoordenadasChange }: VisitaFo
       <div>
         {foto ? (
           <div className="relative">
-            <img src={previewUrl ?? ""} alt="Foto da visita" className="max-h-40 rounded-md object-contain" />
+            <img
+              src={previewUrl ?? ""}
+              alt="Foto da visita"
+              className="max-h-40 max-w-full rounded-md object-contain"
+            />
             <Button
               type="button"
               size="sm"

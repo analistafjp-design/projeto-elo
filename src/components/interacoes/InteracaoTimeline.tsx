@@ -78,7 +78,7 @@ export function InteracaoTimeline({ interacoes, loading, onExcluir }: InteracaoT
                 <img
                   src={interacao.foto_url}
                   alt="Foto da visita"
-                  className="mt-2 max-h-40 rounded-md border border-border object-contain"
+                  className="mt-2 max-h-40 max-w-full rounded-md border border-border object-contain"
                 />
               )}
 
