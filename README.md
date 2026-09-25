@@ -424,27 +424,31 @@ programação antes**. Siga os passos na ordem, sem pular etapas.
 
 ### 3. Executar o SQL (schema, RLS, storage, alertas)
 
+**Caminho rápido (recomendado) — tudo em uma única execução:**
+
 1. No painel do Supabase, no menu lateral esquerdo, clique no ícone
-   **SQL Editor**.
-2. Clique em **New query**.
-3. No seu computador, abra a pasta `supabase/migrations` do projeto que
-   você clonou. Você verá 6 arquivos, nomeados em ordem:
-   - `0001_profiles.sql`
-   - `0002_core_tables.sql`
-   - `0003_rls_policies.sql`
-   - `0004_storage.sql`
-   - `0005_alertas_automaticos.sql`
-   - `0006_seed_opcional.sql` *(opcional — só use se quiser dados de
-     exemplo)*
-4. Abra o arquivo `0001_profiles.sql` em qualquer editor de texto, copie
-   **todo o conteúdo**, cole na caixa do SQL Editor do Supabase e clique em
-   **Run** (ou `Ctrl+Enter`). Aguarde a mensagem de sucesso.
-5. Repita o processo para `0002`, `0003`, `0004` e `0005`, **sempre nessa
-   ordem**, um arquivo por vez, clicando em **New query** antes de colar o
-   próximo.
-6. O arquivo `0006_seed_opcional.sql` só deve ser executado **depois** que
-   você já tiver criado seu primeiro usuário (passo 5 abaixo) — ele cria
-   clientes e negociações de exemplo para você testar o sistema.
+   **SQL Editor** → **New query**.
+2. No seu computador, abra o arquivo `supabase/setup_completo.sql` do
+   projeto que você clonou (ou veja direto no GitHub, na pasta
+   `supabase/`).
+3. Copie **todo o conteúdo** do arquivo, cole na caixa do SQL Editor e
+   clique em **Run** (ou `Ctrl+Enter`). Esse arquivo já contém, na ordem
+   certa, tudo que os 5 arquivos de `migrations/` fazem juntos — schema,
+   RLS, storage e alertas — em uma única transação.
+4. Aguarde a mensagem de sucesso ("Success. No rows returned").
+
+**Caminho alternativo — arquivo por arquivo:**
+
+Se preferir revisar/aplicar cada etapa separadamente, abra a pasta
+`supabase/migrations` e execute, um de cada vez e **sempre nessa ordem**,
+os arquivos `0001_profiles.sql`, `0002_core_tables.sql`,
+`0003_rls_policies.sql`, `0004_storage.sql` e `0005_alertas_automaticos.sql`
+— copiando o conteúdo de cada um, colando em uma **New query** e clicando
+em **Run** antes de passar para o próximo.
+
+Em ambos os casos, o arquivo `0006_seed_opcional.sql` (dados de exemplo)
+só deve ser executado **depois** que você já tiver criado seu primeiro
+usuário (passo 5 abaixo).
 
 ### 4. Configurar Storage
 

@@ -4,6 +4,10 @@
 -- interacoes, alertas
 -- ============================================================
 
+-- pg_trgm precisa estar habilitada ANTES de qualquer índice que use o
+-- operator class gin_trgm_ops (usado abaixo para busca textual rápida).
+create extension if not exists pg_trgm;
+
 -- ------------------------------------------------------------
 -- Tabela: clientes
 -- ------------------------------------------------------------
@@ -29,8 +33,6 @@ create index if not exists clientes_nome_idx on public.clientes using gin (nome 
 create index if not exists clientes_telefone_idx on public.clientes (telefone);
 create index if not exists clientes_operador_idx on public.clientes (operador_id);
 create index if not exists clientes_status_idx on public.clientes (status);
-
-create extension if not exists pg_trgm;
 
 drop trigger if exists set_updated_at on public.clientes;
 create trigger set_updated_at

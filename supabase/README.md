@@ -8,7 +8,8 @@ ELO no Supabase.
 ```
 supabase/
 ├── config.toml                  # Configuração do projeto (CLI local)
-├── migrations/                  # Scripts SQL, aplicados em ordem
+├── setup_completo.sql           # Migrações 0001-0005 concatenadas em um só arquivo
+├── migrations/                  # Os mesmos scripts SQL, separados e aplicados em ordem
 │   ├── 0001_profiles.sql        # Perfis de usuário + triggers
 │   ├── 0002_core_tables.sql     # clientes, negociacoes, comprovantes,
 │   │                             # interacoes, alertas
@@ -22,7 +23,14 @@ supabase/
 
 ## Como aplicar
 
-### Opção A — Supabase CLI (recomendado)
+### Opção A — SQL Editor, tudo de uma vez (mais simples, recomendado)
+
+Abra o **SQL Editor** do Supabase Studio → **New query**, cole todo o
+conteúdo de [`setup_completo.sql`](./setup_completo.sql) e clique em
+**Run** uma única vez. Ele já contém as migrações 0001 a 0005 na ordem
+correta (não inclui a 0006, que é só o seed opcional de exemplo).
+
+### Opção B — Supabase CLI
 
 ```bash
 npm install -g supabase
@@ -32,12 +40,11 @@ supabase db push
 supabase functions deploy gerar-alertas
 ```
 
-### Opção B — SQL Editor (manual, sem instalar nada)
+### Opção C — SQL Editor, arquivo por arquivo
 
-Veja o passo a passo detalhado na seção **CONFIGURAÇÃO MANUAL** do
-`README.md` na raiz do projeto. Resumidamente: abra o SQL Editor do
-Supabase Studio e execute os arquivos de `migrations/` **em ordem
-numérica**, um de cada vez.
+Execute os arquivos de `migrations/` **em ordem numérica**, um de cada
+vez, colando o conteúdo de cada um em uma nova query. Use essa opção
+apenas se preferir revisar/aplicar cada etapa separadamente.
 
 ## Agendando a geração de alertas
 
