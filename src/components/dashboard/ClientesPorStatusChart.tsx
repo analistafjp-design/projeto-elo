@@ -25,8 +25,10 @@ export function ClientesPorStatusChart({ data }: { data: ClientePorStatus[] }) {
                 data={data}
                 dataKey="quantidade"
                 nameKey="status"
-                innerRadius={55}
-                outerRadius={85}
+                cx="50%"
+                cy="50%"
+                innerRadius="55%"
+                outerRadius="80%"
                 paddingAngle={2}
               >
                 {data.map((entry) => (

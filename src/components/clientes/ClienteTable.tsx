@@ -59,7 +59,7 @@ export function ClienteTable({ clientes, loading, onEdit, onDelete }: ClienteTab
             <TableHead>Matrícula</TableHead>
             <TableHead>Nome</TableHead>
             <TableHead className="hidden md:table-cell">Telefone</TableHead>
-            <TableHead className="hidden lg:table-cell">Endereço</TableHead>
+            <TableHead className="hidden xl:table-cell">Endereço</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="w-10" />
           </TableRow>
@@ -79,7 +79,7 @@ export function ClienteTable({ clientes, loading, onEdit, onDelete }: ClienteTab
                   {cliente.telefone || "-"}
                 </span>
               </TableCell>
-              <TableCell className="hidden max-w-xs truncate lg:table-cell">
+              <TableCell className="hidden max-w-[220px] truncate xl:table-cell">
                 {cliente.endereco || "-"}
               </TableCell>
               <TableCell>
