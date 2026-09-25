@@ -98,6 +98,14 @@
   #root {
     min-height: 100dvh;
   }
+
+  /* Rede de segurança: nenhuma imagem (foto de visita, comprovante, etc.)
+     deve ultrapassar a largura do seu contêiner, mesmo que o componente
+     que a renderiza esqueça de limitar isso explicitamente. */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 @layer utilities {

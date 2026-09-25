@@ -138,7 +138,11 @@ export function ComprovanteUpload({ enviar, negociacaoId, onOcrExtraido, trigger
                   <X className="h-3.5 w-3.5" />
                 </button>
                 {previewUrl ? (
-                  <img src={previewUrl} alt="Pré-visualização" className="mx-auto max-h-56 rounded object-contain" />
+                  <img
+                    src={previewUrl}
+                    alt="Pré-visualização"
+                    className="mx-auto max-h-56 max-w-full rounded object-contain"
+                  />
                 ) : (
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <FileImage className="h-5 w-5" />
