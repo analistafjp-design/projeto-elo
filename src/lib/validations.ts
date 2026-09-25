@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { isValidCPF } from "./masks";
 
 export const loginSchema = z.object({
   email: z.string().min(1, "Informe seu e-mail.").email("E-mail inválido."),
@@ -46,10 +45,6 @@ export const clienteSchema = z.object({
       message: "Telefone inválido.",
     }),
   endereco: z.string().optional(),
-  email: z.string().optional().refine((v) => !v || z.string().email().safeParse(v).success, {
-    message: "E-mail inválido.",
-  }),
-  cpf: z.string().optional().refine((v) => !v || isValidCPF(v), { message: "CPF inválido." }),
   status: z.enum(["Ativo", "Inativo", "Em Negociação"]),
 });
 export type ClienteFormValues = z.infer<typeof clienteSchema>;

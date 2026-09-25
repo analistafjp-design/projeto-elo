@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { DialogFooter } from "@/components/ui/dialog";
 import { clienteSchema, type ClienteFormValues } from "@/lib/validations";
-import { maskCPF, maskTelefone } from "@/lib/masks";
+import { maskTelefone } from "@/lib/masks";
 import { CLIENTE_STATUS } from "@/lib/constants";
 import type { Cliente } from "@/types";
 
@@ -41,8 +41,6 @@ export function ClienteForm({ cliente, onSubmit, onCancel, submitting }: Cliente
       nome: cliente?.nome ?? "",
       telefone: cliente?.telefone ?? "",
       endereco: cliente?.endereco ?? "",
-      email: cliente?.email ?? "",
-      cpf: cliente?.cpf ?? "",
       status: cliente?.status ?? "Ativo",
     },
   });
@@ -53,8 +51,6 @@ export function ClienteForm({ cliente, onSubmit, onCancel, submitting }: Cliente
       nome: cliente?.nome ?? "",
       telefone: cliente?.telefone ?? "",
       endereco: cliente?.endereco ?? "",
-      email: cliente?.email ?? "",
-      cpf: cliente?.cpf ?? "",
       status: cliente?.status ?? "Ativo",
     });
   }, [cliente, reset]);
@@ -93,34 +89,15 @@ export function ClienteForm({ cliente, onSubmit, onCancel, submitting }: Cliente
         {errors.nome && <p className="text-sm text-destructive">{errors.nome.message}</p>}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="telefone">Telefone</Label>
-          <Input
-            id="telefone"
-            placeholder="(00) 00000-0000"
-            {...register("telefone")}
-            onChange={(e) => setValue("telefone", maskTelefone(e.target.value))}
-          />
-          {errors.telefone && <p className="text-sm text-destructive">{errors.telefone.message}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="cpf">CPF</Label>
-          <Input
-            id="cpf"
-            placeholder="000.000.000-00"
-            {...register("cpf")}
-            onChange={(e) => setValue("cpf", maskCPF(e.target.value))}
-          />
-          {errors.cpf && <p className="text-sm text-destructive">{errors.cpf.message}</p>}
-        </div>
-      </div>
-
       <div className="space-y-2">
-        <Label htmlFor="email">E-mail</Label>
-        <Input id="email" type="email" placeholder="cliente@email.com" {...register("email")} />
-        {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+        <Label htmlFor="telefone">Telefone</Label>
+        <Input
+          id="telefone"
+          placeholder="(00) 00000-0000"
+          {...register("telefone")}
+          onChange={(e) => setValue("telefone", maskTelefone(e.target.value))}
+        />
+        {errors.telefone && <p className="text-sm text-destructive">{errors.telefone.message}</p>}
       </div>
 
       <div className="space-y-2">
