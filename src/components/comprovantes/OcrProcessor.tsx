@@ -122,7 +122,7 @@ export function OcrProcessor({ imagem, onAplicar }: OcrProcessorProps) {
           </div>
         </div>
 
-        <div className="flex justify-end gap-2 pt-1">
+        <div className="flex flex-col-reverse gap-2 pt-1 sm:flex-row sm:justify-end">
           <Button type="button" variant="ghost" size="sm" onClick={executar} disabled={processando}>
             Processar novamente
           </Button>
