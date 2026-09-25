@@ -21,7 +21,7 @@ export default function DashboardPage() {
         description="Acompanhe o desempenho das negociações em campo em tempo real."
       />
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <StatCard
           title="Clientes acompanhados"
           value={String(resumo?.clientes_total ?? 0)}
