@@ -51,6 +51,35 @@ export async function excluirCliente(id: string): Promise<void> {
   if (error) throw new Error(error.message);
 }
 
+/**
+ * Busca, entre as matrículas informadas, quais já existem no banco (e
+ * quem é o operador/criador atual de cada uma) — usado pela importação
+ * em massa para decidir, linha a linha, se cria um cliente novo ou
+ * atualiza um existente sem reatribuir o operador responsável por ele.
+ */
+export async function buscarClientesPorMatriculas(
+  matriculas: string[],
+): Promise<Pick<Cliente, "id" | "matricula" | "operador_id" | "created_by">[]> {
+  if (matriculas.length === 0) return [];
+  const { data, error } = await supabase
+    .from("clientes")
+    .select("id, matricula, operador_id, created_by")
+    .in("matricula", matriculas);
+  if (error) throw new Error(error.message);
+  return data ?? [];
+}
+
+/**
+ * Cria/atualiza vários clientes em uma única operação (upsert por
+ * matrícula). Usado pela importação em massa para não precisar de uma
+ * requisição por linha da planilha.
+ */
+export async function upsertClientesEmLote(linhas: ClienteInsert[]): Promise<void> {
+  if (linhas.length === 0) return;
+  const { error } = await supabase.from("clientes").upsert(linhas, { onConflict: "matricula" });
+  if (error) throw new Error(traduzirErroCliente(error.message));
+}
+
 function traduzirErroCliente(message: string): string {
   if (message.includes("clientes_matricula_key")) {
     return "Já existe um cliente cadastrado com esta matrícula.";
