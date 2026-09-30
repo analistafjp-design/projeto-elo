@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Plus } from "lucide-react";
+import { Download, Loader2, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/shared/PageHeader";
@@ -9,6 +9,7 @@ import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
 import { ClienteFilters } from "@/components/clientes/ClienteFilters";
 import { ClienteTable } from "@/components/clientes/ClienteTable";
 import { ClienteForm } from "@/components/clientes/ClienteForm";
+import { ClienteImportDialog } from "@/components/clientes/ClienteImportDialog";
 import { useClientes } from "@/hooks/useClientes";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useAuth } from "@/context/AuthContext";
@@ -26,13 +27,14 @@ export default function ClientesPage() {
     [buscaDebounced, status],
   );
 
-  const { clientes, loading, criar, atualizar, excluir } = useClientes(filtros);
+  const { clientes, loading, criar, atualizar, excluir, recarregar } = useClientes(filtros);
 
   const [dialogAberto, setDialogAberto] = useState(false);
   const [clienteEditando, setClienteEditando] = useState<Cliente | null>(null);
   const [clienteExcluindo, setClienteExcluindo] = useState<Cliente | null>(null);
   const [salvando, setSalvando] = useState(false);
   const [excluindo, setExcluindo] = useState(false);
+  const [exportando, setExportando] = useState(false);
 
   const abrirNovo = () => {
     setClienteEditando(null);
@@ -76,16 +78,43 @@ export default function ClientesPage() {
     }
   };
 
+  const handleExportar = async () => {
+    if (clientes.length === 0) {
+      toast.error("Não há clientes para exportar.");
+      return;
+    }
+    setExportando(true);
+    try {
+      const { exportarClientesParaExcel } = await import("@/lib/excel");
+      await exportarClientesParaExcel(clientes);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Erro ao gerar a planilha.");
+    } finally {
+      setExportando(false);
+    }
+  };
+
   return (
     <div>
       <PageHeader
         title="Clientes"
         description="Gerencie os clientes acompanhados pela sua equipe em campo."
         actions={
-          <Button onClick={abrirNovo}>
-            <Plus className="h-4 w-4" />
-            Novo cliente
-          </Button>
+          <>
+            <ClienteImportDialog clientes={clientes} userId={user?.id} onImportado={recarregar} />
+            <Button type="button" variant="outline" onClick={handleExportar} disabled={exportando}>
+              {exportando ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Download className="h-4 w-4" />
+              )}
+              Exportar Excel
+            </Button>
+            <Button onClick={abrirNovo}>
+              <Plus className="h-4 w-4" />
+              Novo cliente
+            </Button>
+          </>
         }
       />
 
